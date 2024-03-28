@@ -5,7 +5,7 @@
 Melanie Chen\
 Noah Erdogan\
 Jason Figueroa\
-Brady Zhou\
+Brady Zhou
 
 ## Problem Statement
 
