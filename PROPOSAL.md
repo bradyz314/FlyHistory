@@ -2,10 +2,10 @@
 
 ## Authors
 
-Melanie Chen
-Noah Erdogan
-Jason Figueroa
-Brady Zhou
+Melanie Chen\
+Noah Erdogan\
+Jason Figueroa\
+Brady Zhou\
 
 ## Problem Statement
 
