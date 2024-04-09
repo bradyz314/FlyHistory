@@ -2,6 +2,12 @@
     "name": "FlyCheap Extension",
     "version": "1.0.0",
     "manifest_version": 3,
+    "side_panel": {
+      "default_path": "sidepanel.html"
+    },
+    "permissions": [
+      "sidePanel"
+    ],
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
@@ -10,4 +16,6 @@
         ]
       }
     ]
+
   }
+
