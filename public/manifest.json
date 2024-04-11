@@ -8,13 +8,15 @@
   "background": {
     "service_worker": "background.js"
   },
-  "action": {},
+  "action": {
+    "default_popup": "index.html"
+  },
   "permissions": [
     "sidePanel"
   ],
   "content_scripts": [
     {
-      "matches": ["*://www.google.com/travel/flights/booking*"],
+      "matches": ["https://*.google.com/*"],
       "js": ["contentScript.js"]
     }
   ]
