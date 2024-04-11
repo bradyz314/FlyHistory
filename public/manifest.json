@@ -1,5 +1,5 @@
 {
-  "name": "FlyCheap Extension",
+  "name": "FlyHistory Extension",
   "version": "1.0.0",
   "manifest_version": 3,
   "side_panel": {
