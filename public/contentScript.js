@@ -4,6 +4,7 @@ function scrape_booking(url) {
     const booking_regex = /.*\.google\.com\/travel\/flights\/booking*/;
     const one_way_regex = /(.*) to (.*)/;
     const round_trip_regex = /(.*) to (.*) and back/;
+    const date_regex = /^(\w{3}), (\w{3}) (\d*)$/
     // If the URL is the booking page, scrape the data.
     if (booking_regex.test(url)) {
         // Get the text related divs in the document
@@ -12,14 +13,24 @@ function scrape_booking(url) {
         const location_div_label = text_divs[0].getAttribute('aria-label');
         // Get the nested span containing the price of the flights
         const price_span_content = text_divs[1].querySelector('div span').textContent;
-        // Match label on one_way_regex and round_trip_regex
-        const one_way_match = location_div_label.match(one_way_regex);
-        const round_trip_match = location_div_label.match(round_trip_regex);
-        const is_round_trip = round_trip_match !== null;
-        // Extract capture groups from the corresponding regex pattern
-        const origin = is_round_trip ? round_trip_match[1] : one_way_match[1];
-        const destination = is_round_trip ? round_trip_match[2] : one_way_match[2];
-        console.log(is_round_trip, origin, destination, price_span_content);
+        // Get the divs that contain the airport codes corresponding to the flights
+        const airport_code_divs = Array.from(document.querySelectorAll('div')).filter(element => element.className === '' && element.length === 3);
+        // Get the divs that contain the departure and arrival times corresponding to the flights (every 6 divs refer to the same flight -> only use first 2 of every 6)
+        const flight_time_divs = Array.from(document.querySelectorAll('div')).filter(element => element.getAttribute('aria-label') !== null && element.getAttribute('aria-label').includes('time'));
+        // Get the divs that contain the day of the flights
+        const flight_date_divs = Array.from(document.querySelectorAll('div')).filter(element => date_regex.test(element.textContent))
+        const flight_info = {}
+        // For now, ignore multi-city trips
+        if (location_div_label !== null) {
+            // Match label on one_way_regex and round_trip_regex
+            const one_way_match = location_div_label.match(one_way_regex);
+            const round_trip_match = location_div_label.match(round_trip_regex);
+            const is_round_trip = round_trip_match !== null;
+            // Extract capture groups from the corresponding regex pattern
+            const origin = is_round_trip ? round_trip_match[1] : one_way_match[1];
+            const destination = is_round_trip ? round_trip_match[2] : one_way_match[2];
+            console.log(is_round_trip, origin, destination, price_span_content);
+        }
     }
 }
 
