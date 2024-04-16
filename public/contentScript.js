@@ -22,38 +22,41 @@ function scrape_booking(url) {
         const flight_date_divs = Array.from(document.querySelectorAll('div')).filter(element => date_regex.test(element.textContent))
         // Get the spans that contain the number of stops for each flight
         const flight_stop_spans = Array.from(document.querySelectorAll('span')).filter(element => stop_regex.test(element.getAttribute('aria-label')));
-        const flight_info = []
-        // For now, ignore multi-city trips
-        if (location_div_label !== null) {
+        const flight_type = location_div_label === null ? 'Multi-City Trip' : (location_div_label.match(round_trip_regex) ? 'Round Trip' : 'One Way Trip');
+        const flight_info = [];
+        const flight_class = Array.from(document.querySelectorAll('span')).filter(element => element.getAttribute('aria-label') === ' ')[0].nextSibling;
+        let origin = null;
+        let destination = null;
+        // Extract capture groups from the corresponding regex pattern
+        if (flight_type !== 'Multi-City Trip') {
             // Match label on one_way_regex and round_trip_regex
             const one_way_match = location_div_label.match(one_way_regex);
             const round_trip_match = location_div_label.match(round_trip_regex);
-            const is_round_trip = round_trip_match !== null;
-            // Extract capture groups from the corresponding regex pattern
-            const origin = is_round_trip ? round_trip_match[1] : one_way_match[1];
-            const destination = is_round_trip ? round_trip_match[2] : one_way_match[2];
-            for (let i = 0; i < flight_date_divs.length; i++) {
-                flight_info.push({
-                    'date': flight_date_divs[i].textContent,
-                    'origin_airport': airport_code_divs[2 * i].textContent,
-                    'destination_airport': airport_code_divs[2 * i + 1].textContent,
-                    'departure_time': flight_time_divs[6 * i].textContent,
-                    'arrival_time': flight_time_divs[6 * i + 1].textContent,
-                    'num_stops': flight_stop_spans[i].textContent
-                });
-            }
-            console.log(is_round_trip, origin, destination, price_span_content);
-            console.log(flight_info);
+            origin = flight_type === 'Round Trip' ? round_trip_match[1] : one_way_match[1];
+            destination = flight_type === 'Round Trip' ? round_trip_match[2] : one_way_match[2];
         }
+        for (let i = 0; i < flight_date_divs.length; i++) {
+            flight_info.push({
+                'date': flight_date_divs[i].textContent,
+                'origin_airport': airport_code_divs[2 * i].textContent,
+                'destination_airport': airport_code_divs[2 * i + 1].textContent,
+                'departure_time': flight_time_divs[6 * i].textContent,
+                'arrival_time': flight_time_divs[6 * i + 1].textContent,
+                'num_stops': flight_stop_spans[i] !== undefined ? flight_stop_spans[i].textContent : 'Nonstop'
+            });
+        }
+        console.log(flight_type, origin, destination, price_span_content);
+        console.log(flight_info);
+        console.log(flight_class);
     }
 }
 
 // Add an event listener that will call scrape_booking on the popstate event
 window.addEventListener('popstate', () => { 
-    // scrape_booking(window.location.href);
     const booking_regex = /.*\.google\.com\/travel\/flights\/booking*/;
     const url = window.location.href;
     if (booking_regex.test(url)) {
+        console.log('pop')
         window.location.replace(url);
     }
 });
@@ -67,7 +70,8 @@ window.addEventListener('load', () => {
         // Set a timer for 1s. If no changes are observed in DOM, scrape the information.
         timer = setTimeout(() => {
             scrape_booking(window.location.href);
-        }, 1000);
+            domObserver.disconnect();
+        }, 2000);
     });
     domObserver.observe(document.body, { childList: true, subtree: true });
 })
