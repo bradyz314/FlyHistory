@@ -5,7 +5,79 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Flight History Tracker</title>
   </head>
+  <style>
+    h1 {
+      color: #336699; /* This is a blue color, choose any color you like */
+    }
+    body {
+      background-color: #202123;
+    }
+    
+    #price-filter {
+      display: none;
+      width: 55%;
+      background-color: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    #price-slider {
+        height: 20px;
+        width: 100%;
+        background-color: #ddd;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    #price-slider:hover {
+        opacity: 1;
+    }
+
+    #flight-list {
+      margin-top: 20px; /* Adjust the value as needed */
+    }
+    .flight-info {
+      display: flex;
+      align-items: center;
+      background-color: #333C4D;
+      color: #fff;
+      opacity: 0.85;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    flight-info .details {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+    }
+    .flight-info .details > div {
+      margin-right: 10px;
+    }
+    .flight-info .price-emissions-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end; 
+      margin-left: auto;
+    }
+
+  </style>
+
   <body>
-      <div id="root"></div>
+      <h1><center>Flight History</center></h1>
+      <div id="filter-buttons">
+        <button id="show-price-filter">Price</button>
+        <!--  <button>Filter 2</button> -->
+        <!--  <button>Filter 3</button> -->
+      </div>
+      <div id="price-filter">
+        <label for="price-slider">up to <span id="price-value"></span></label>
+        <input type="range" id="price-slider" min="0" max="1000" value="1000" step="1">
+        <!-- <button id="apply-filter">Clear</button>-->
+      </div>
+      <div id="flight-list"></div>
+      <script src="buttonPress.js"></script>
+      <script src="flightList.js"></script>
   </body>
 </html>
