@@ -48,6 +48,23 @@ function scrape_booking(url) {
         console.log(flight_type, origin, destination, price_span_content);
         console.log(flight_info);
         console.log(flight_class);
+        
+        var tripData = {
+            flight_type: flight_type,
+            origin: origin,
+            destination: destination,
+            price: price_span_content,
+            flights: flight_info
+        };
+        
+        // Serialize the trip data to a JSON string
+        var serializedData = JSON.stringify(tripData);
+        
+        // Store the serialized data in local storage
+        localStorage.setItem('currentTrip', serializedData);
+        
+        // Optionally, you can log the data to the console to verify it
+        console.log(serializedData);
     }
 }
 
