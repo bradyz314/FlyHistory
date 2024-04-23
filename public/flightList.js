@@ -1,6 +1,11 @@
 const flightList = document.getElementById('flight-list');
 
+function getAllTrips() {
+    var tripsData = localStorage.getItem('trips');
+    return tripsData ? JSON.parse(tripsData) : [];
+}
 
+const allTrips = getAllTrips();
 
 const testFlights = [
     {
@@ -116,7 +121,8 @@ function updateOrder(price, stops, order) {
 }
 
 function renderFlights(maxPrice, maxStops) {
-
+    
+    
     flightList.innerHTML = '';
 
     testFlights.forEach(flight => {
