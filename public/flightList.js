@@ -12,7 +12,7 @@ const testFlights = [
         duration: '2 hr 49 min',
         stops: 'Nonstop',
         price: 500,
-        emissions: '-29%'
+        num_stops: 3
     },
     {
         airline: 'Frontier',
@@ -23,7 +23,8 @@ const testFlights = [
         duration: '2 hr 50 min',
         stops: 'Nonstop',
         price: 700,
-        emissions: '-29%'
+        num_stops: 1
+
     },
     {
         airline: 'Spirit',
@@ -34,7 +35,7 @@ const testFlights = [
         duration: '2 hr 43 min',
         stops: 'Nonstop',
         price: 250,
-        emissions: '-29%',
+        num_stops: 0,
         note: 'SEPARATE TICKETS BOOKED TOGETHER'
     }
 ];
@@ -65,8 +66,8 @@ function createFlightInfoElement(flight) {
     detailsDiv.appendChild(airportDiv);
     detailsDiv.appendChild(durationDiv);
 
-    const priceEmissionsContainer = document.createElement('div');
-    priceEmissionsContainer.classList.add('price-emissions-container');
+    const priceStopsContainer = document.createElement('div');
+    priceStopsContainer.classList.add('price-stops-container');
 
 
 
@@ -74,29 +75,58 @@ function createFlightInfoElement(flight) {
     priceDiv.classList.add('price');
     priceDiv.textContent = `$${flight.price}`;
 
-    const emissionsDiv = document.createElement('div');
-    emissionsDiv.classList.add('emissions');
-    emissionsDiv.textContent = `${flight.emissions} emissions`;
+    const stopsDiv = document.createElement('div');
+    stopsDiv.classList.add('num_stops');
+    stopsDiv.textContent = `${flight.num_stops} stop(s)`;
 
-    priceEmissionsContainer.appendChild(priceDiv);
-    priceEmissionsContainer.appendChild(emissionsDiv);
+    priceStopsContainer.appendChild(priceDiv);
+    priceStopsContainer.appendChild(stopsDiv);
 
     flightInfoElement.appendChild(detailsDiv);
-    flightInfoElement.appendChild(priceEmissionsContainer);
+    flightInfoElement.appendChild(priceStopsContainer);
 
     return flightInfoElement;
 }
 
-function renderFlights(maxPrice) {
+function updateOrder(price, stops, order) {
+
+    if (order == 'price-asc') {
+        testFlights.sort((a, b) => {
+              return a.price - b.price;
+            });
+    } else if (order === 'price-desc') {
+        testFlights.sort((a, b) => {
+            return b.price - a.price;
+          });
+    } else if (order === 'stops-asc') {
+        testFlights.sort((a, b) => {
+            return a.num_stops - b.num_stops;
+          });
+    } else if (order === 'stops-desc') {
+        testFlights.sort((a, b) => {
+            return b.num_stops - a.num_stops;
+          });
+    }
+
+    renderFlights(price, stops);
+
+
+
+    
+}
+
+function renderFlights(maxPrice, maxStops) {
 
     flightList.innerHTML = '';
 
     testFlights.forEach(flight => {
-        const flightInfoElement = createFlightInfoElement(flight);
-        flightList.appendChild(flightInfoElement);
-        
+        if (flight.price <= maxPrice && flight.num_stops <= maxStops) {
+            const flightInfoElement = createFlightInfoElement(flight);
+            flightList.appendChild(flightInfoElement);
+        }
     });
 }
+/*
 
 function renderFlightsByPrice(maxPrice) {
 
@@ -105,8 +135,22 @@ function renderFlightsByPrice(maxPrice) {
         if (flight.price <= maxPrice) {
             const flightInfoElement = createFlightInfoElement(flight);
             flightList.appendChild(flightInfoElement);
-        }
+        
     });
 }
 
-renderFlights();
+function renderFlightsByStops(maxStops) {
+
+    flightList.innerHTML = '';
+    testFlights.forEach(flight => {
+        if (flight.num_stops <= maxStops) {
+            const flightInfoElement = createFlightInfoElement(flight);
+            flightList.appendChild(flightInfoElement);
+        }
+    });
+}
+*/
+
+
+renderFlights(1000, 5);
+
