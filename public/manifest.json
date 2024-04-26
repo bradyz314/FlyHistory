@@ -12,7 +12,7 @@
     "default_popup": "index.html"
   },
   "permissions": [
-    "sidePanel"
+    "sidePanel", "storage"
   ],
   "content_scripts": [
     {
