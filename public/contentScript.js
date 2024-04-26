@@ -1,22 +1,4 @@
-function appendFlightData(tripData) {
-    // Get the existing data from local storage
-    var existingData = localStorage.getItem('trips');
-    var trips = existingData ? JSON.parse(existingData) : [];
-
-    // Add new trip data to the array of trips
-    trips.push(tripData);
-
-    // Serialize the updated array to a JSON string
-    var updatedData = JSON.stringify(trips);
-
-    // Store the updated data back in local storage
-    localStorage.setItem('trips', updatedData);
-}
-
-function getAllTrips() {
-    var tripsData = localStorage.getItem('trips');
-    return tripsData ? JSON.parse(tripsData) : [];
-}
+/* global chrome */
 
 // Helper function that will scrape relevant data from booking page
 function scrape_booking(url) {
@@ -74,31 +56,24 @@ function scrape_booking(url) {
             origin: origin,
             destination: destination,
             price: price_span_content,
-            flights: flight_info
+            flights: flight_info,
+            flight_url: url
         };
-        
-        // Serialize the trip data to a JSON string
-        //var serializedData = JSON.stringify(tripData);
-        
-        // Store the serialized data in local storage
-        //localStorage.setItem('currentTrip', serializedData);
-        
-        // Optionally, you can log the data to the console to verify it
-        //console.log(serializedData);
-
-        // Append the new trip data to local storage
-        appendFlightData(tripData);
-
-        //log the data to the console to verify it
-        console.log(tripData);
-
-        //get all trips from local storage
-        var allTrips = getAllTrips();
-        console.log(allTrips); // Logs all trip data stored in local storage
-
-        
+        chrome.runtime.sendMessage({
+            event: "add_flight",
+            data: tripData
+        });
     }
 }
+
+chrome.runtime.onMessage.addListener(
+    (request, _) => {
+        console.log(request.status)
+        if (request.status === 'Flight info added') {
+            console.log(request.flights)
+        }
+    }
+)
 
 // Add an event listener that will call scrape_booking on the popstate event
 window.addEventListener('popstate', () => { 
