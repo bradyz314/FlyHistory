@@ -1,17 +1,20 @@
 /* global chrome */
 
 chrome.runtime.onMessage.addListener(
-    (request, _, sendResponse) => {
-        console.log(request)
-        if (request.event === 'add_flight') {
-            // Retrieve existing flights from local storage.
-            chrome.storage.local.get({'flights': []}, (result) => {
-                const flights = result.flights;
+    (request, _) => {
+        chrome.storage.local.get({'flights': []}, (result) => {
+            let flights = result.flights;
+            if (request.event === 'add_flight') {
                 // Create a new flight with a unique ID and the trip's details.
                 const new_flight = {
                     id: Date.now(),
-                    data: request.data
-                }
+                    flight_type: request.data.flight_type,
+                    origin: request.data.origin,
+                    destination: request.data.destination,
+                    price: request.data.price,
+                    flights: request.data.flights,
+                    flight_url: request.data.flight_url
+                };
                 // Check if the flight is a duplicate (by comparing URLs)
                 let is_duplicate = false;
                 for (let i = 0; i < flights.length; i++) {
@@ -22,13 +25,9 @@ chrome.runtime.onMessage.addListener(
                 }
                 if (!is_duplicate) {
                     flights.push(new_flight);
-                    chrome.storage.local.set({ flights });
-                    console.log('Success');
-                } else {
-                    console.log('Duplicate')
+                    chrome.storage.local.set({ flights: flights });
                 }
-                console.log(flights)
-            })
-        }
+            }
+        });
     }
 )
