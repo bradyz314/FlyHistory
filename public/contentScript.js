@@ -66,15 +66,6 @@ function scrape_booking(url) {
     }
 }
 
-chrome.runtime.onMessage.addListener(
-    (request, _) => {
-        console.log(request.status)
-        if (request.status === 'Flight info added') {
-            console.log(request.flights)
-        }
-    }
-)
-
 // Add an event listener that will call scrape_booking on the popstate event
 window.addEventListener('popstate', () => { 
     const booking_regex = /.*\.google\.com\/travel\/flights\/booking*/;
