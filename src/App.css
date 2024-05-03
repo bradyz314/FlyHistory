@@ -1,38 +1,52 @@
-.App {
-  text-align: center;
+body {
+  background-color: #202123;
+  color: #336699;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#flight-list {
+  margin-top: 20px; /* Adjust the value as needed */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.flight-info {
+  display: flex;
+  align-items: center;
+  background-color: #333C4D;
+  color: #fff;
+  opacity: 0.85;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+flight-info .details {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+.flight-info .details > div {
+  margin-right: 10px;
+}
+.flight-info .price-stops-container {
   display: flex;
   flex-direction: column;
+  align-items: flex-end; 
+  margin-left: auto;
+}
+#filter-buttons {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+#filter-buttons button {
+  margin-right: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#sort-filter {
+  display: flex;
+  align-items: center;
+  
+}
+
+#sort-filter label {
+  margin-right: 5px;
 }
