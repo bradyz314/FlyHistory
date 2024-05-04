@@ -7,21 +7,15 @@ interface TripListProps {
 
 export default function TripList({trips, onDelete} : TripListProps) {
     return (
-        <>
-            {trips.length > 0 ? (
-                <div>
-                    {trips.map((data) => (
-                        <TripItem
-                            tripData={data}
-                            onDelete={onDelete}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <p>
-                    You don't have any saved flights! Go to Google Flights and begin your search.
-                </p>
-            )}
-        </>
+        <div className='trip-list'>
+            {trips.map((data) => (
+                <>
+                    <TripItem
+                        tripData={data}
+                        onDelete={onDelete}
+                    />
+                </>
+            ))}
+        </div>
     )
 }
