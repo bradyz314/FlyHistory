@@ -10,23 +10,27 @@ chrome.runtime.onMessage.addListener(
                     id: Date.now(),
                     flight_type: request.data.flight_type,
                     origin: request.data.origin,
+                    class: request.data.class,
                     destination: request.data.destination,
                     price: request.data.price,
                     flights: request.data.flights,
                     flight_url: request.data.flight_url
                 };
                 // Check if the flight is a duplicate (by comparing URLs)
-                let is_duplicate = false;
+                let duplicate_idx = -1;
                 for (let i = 0; i < flights.length; i++) {
-                    if (flights[i].data['flight_url'] === new_flight.data['flight_url']) {
-                        is_duplicate = true;
+                    if (flights[i]['flight_url'] === new_flight['flight_url']) {
+                        duplicate_idx = i;
                         break;
                     }
                 }
-                if (!is_duplicate) {
+                if (duplicate_idx === -1) {
                     flights.push(new_flight);
-                    chrome.storage.local.set({ flights: flights });
+                } else {
+                    flights[duplicate_idx] = new_flight;
                 }
+                console.log(duplicate_idx, flights);
+                chrome.storage.local.set({ flights: flights });
             }
         });
     }

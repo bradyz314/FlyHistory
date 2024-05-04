@@ -25,6 +25,7 @@ function scrape_booking(url) {
         // Get the spans that contain the number of stops for each flight
         const flight_stop_spans = Array.from(document.querySelectorAll('span')).filter(element => stop_regex.test(element.getAttribute('aria-label')));
         const flight_type = location_div_label === null ? 'Multi-City Trip' : (location_div_label.match(round_trip_regex) ? 'Round Trip' : 'One Way Trip');
+        const flight_class = Array.from(document.querySelectorAll('span')).filter(element => element.getAttribute('aria-label') === ' ')[0].nextSibling.textContent;
         const flight_info = [];
         let origin = null;
         let destination = null;
@@ -52,6 +53,7 @@ function scrape_booking(url) {
             origin: origin,
             destination,
             price: price_span_content,
+            class: flight_class,
             flights: flight_info,
             flight_url: url
         };
