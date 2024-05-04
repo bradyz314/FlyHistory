@@ -1,52 +1,43 @@
 body {
   background-color: #202123;
-  color: #336699;
+  color: #4387cc;
+}
+
+h2 {
+  font-size: 3em
+}
+
+h3 {
+  font-size: 2.25em;
+}
+
+h4 {
+  font-size: 2em;
 }
 
 #flight-list {
   margin-top: 20px; /* Adjust the value as needed */
 }
 
-.flight-info {
-  display: flex;
-  align-items: center;
-  background-color: #333C4D;
-  color: #fff;
-  opacity: 0.85;
-  padding: 10px;
+#filter-bar {
   margin-bottom: 10px;
-  border-radius: 5px;
 }
-flight-info .details {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-}
-.flight-info .details > div {
-  margin-right: 10px;
-}
-.flight-info .price-stops-container {
-  display: flex;
+
+#trip-info {
+  margin: 3px 0px;
   flex-direction: column;
-  align-items: flex-end; 
-  margin-left: auto;
+  display: flex;  
 }
-#filter-buttons {
+
+#trip-list {
+  margin-top: 5px;
+}
+
+#trip {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
 }
 
-#filter-buttons button {
-  margin-right: 10px;
+#link-btn {
+  margin: 2px;
 }
 
-#sort-filter {
-  display: flex;
-  align-items: center;
-  
-}
-
-#sort-filter label {
-  margin-right: 5px;
-}
