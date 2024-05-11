@@ -1,11 +1,7 @@
-import React from 'react';
-//import { render, screen } from '@testing-library/react';
-import App from './App';
 import FilterBar from './components/FilterBar';
 import TripItem from './components/TripItem';
 import TripList from './components/TripList';
-//import TripList from './components/TripList';  // Adjust the import path as needed
-import { TripData } from './components/TripItem';
+
 import { render, screen, fireEvent } from '@testing-library/react';
 
 describe('FilterBar Component', () => {
@@ -56,53 +52,55 @@ describe('TripList Component', () => {
     expect(screen.getByText(/Los Angeles to Paris/)).toBeInTheDocument();
   });
 });
-// describe('TripList Component', () => {
-//   it('renders a list of trips without error', () => {
-//     const trips: TripData[] = [
-//       {
-//         id: 1,
-//         flight_type: 'One-Way',
-//         origin: 'New York',
-//         destination: 'London',
-//         class: 'Economy',
-//         price: '$500',
-//         flights: [
-//           {
-//             date: '2024-05-20',
-//             origin_airport: 'JFK',
-//             destination_airport: 'LHR',
-//             departure_time: '10:00 AM',
-//             arrival_time: '10:00 PM',
-//             num_stops: 0
-//           }
-//         ],
-//         flight_url: 'http://example.com'
-//       },
-//       {
-//         id: 2,
-//         flight_type: 'Round-Trip',
-//         origin: 'San Francisco',
-//         destination: 'Tokyo',
-//         class: 'Business',
-//         price: '$1500',
-//         flights: [
-//           {
-//             date: '2024-05-22',
-//             origin_airport: 'SFO',
-//             destination_airport: 'NRT',
-//             departure_time: '1:00 PM',
-//             arrival_time: '6:00 PM',
-//             num_stops: 1
-//           }
-//         ],
-//         flight_url: 'http://example.com'
-//       }
-//     ];
 
-//     render(<TripList trips={trips} onDelete={() => {}} />);
 
-//     // Simply checking for any render, not validating content or interactions
-//     const listItems = screen.getAllByTestId('trip-item');
-//     expect(listItems.length).toEqual(trips.length);
-//   });
-// });
+describe('TripItem Component (Alternate)', () => {
+  it('displays alternative schema of trip information correctly', () => {
+    const tripData = {
+      id: 2,
+      flight_type: 'Round-Trip',
+      origin: 'San Francisco',
+      destination: 'Tokyo',
+      class: 'Business',
+      price: '$2000',
+      flights: [],
+      flight_url: 'http://alternative-example.com'
+    };
+
+    render(<TripItem tripData={tripData} onDelete={() => {}} />);
+
+    // Ensure that the destination display is correct
+    const destinationDisplay = screen.getByText(/San Francisco to Tokyo/);
+    expect(destinationDisplay).toBeInTheDocument();
+
+    // Verify the price is displayed correctly
+    const priceDisplay = screen.getByText(/\$2000/);
+    expect(priceDisplay).toBeInTheDocument();
+  });
+});
+
+describe('TripList Component (Alternate)', () => {
+  it('renders a list of trips accurately and with proper functionality', () => {
+    const trips = [
+      { id: 3, flight_type: 'One-Way', origin: 'Seattle', destination: 'Sydney', class: 'Economy', price: '$700', flights: [], flight_url: 'http://alternative-example.com' },
+      { id: 4, flight_type: 'Round-Trip', origin: 'Chicago', destination: 'Dubai', class: 'First Class', price: '$3000', flights: [], flight_url: 'http://alternative-example.com' }
+    ];
+
+    render(<TripList trips={trips} onDelete={() => {}} />);
+
+    // Verify the different trips are displayed correctly
+    expect(screen.getByText(/Seattle to Sydney/)).toBeInTheDocument();
+    expect(screen.getByText(/Chicago to Dubai/)).toBeInTheDocument();
+  });
+});
+
+describe('FilterBar Component', () => {
+  it('buttons are clickable after being rendered', () => {
+      render(<FilterBar handleOriginChange={() => {}} handleDestinationChange={() => {}} handleFlightsChange={() => {}} handleClassChange={() => {}} />);
+      
+      const filterButton = screen.getByText('Filter');
+      fireEvent.click(filterButton); // Simulate click again
+
+      expect(filterButton).toBeTruthy();
+  });
+});
