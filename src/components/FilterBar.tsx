@@ -100,9 +100,9 @@ export default function FilterBar({handleOriginChange, handleDestinationChange, 
                     >
                         <MenuItem value={'Any'}>Any</MenuItem>
                         <MenuItem value={'Economy'}>Economy</MenuItem>
-                        <MenuItem value={'Premium economy'}>Premium economy</MenuItem>
-                        <MenuItem value={'Business'}>Business</MenuItem>
-                        <MenuItem value={'First'}>First</MenuItem>
+                        <MenuItem value={'Premium Economy'}>Premium economy</MenuItem>
+                        <MenuItem value={'Business Class'}>Business</MenuItem>
+                        <MenuItem value={'First Class'}>First</MenuItem>
                     </StyledSelect>
                 </FormControl>
             </Grid>
