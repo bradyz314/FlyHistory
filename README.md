@@ -10,13 +10,22 @@ FlyHistory is a Chrome Extension designed to streamline the process of tracking 
 4. Customization: Users can customize their tracking preferences and settings to suit their individual needs and preferences.
 5. User-Friendly Interface: FlyHistory offers an intuitive and user-friendly interface, making it simple for users to navigate and utilize the extension.
 
+## Screenshots
+The first screenshot showcases how to open up the side panel for FlyHistory:
+
+![Screenshot showcases how to open up the side panel for FlyHistory](./screenshot-sidepanel.png)
+
+The second screenshot shows an example of the flight information that is stored:
+
+![Screenshot of example flight](./screenshot-example-flight.png)
+
 ## How to Use
 1. Clone repository and install all necessary node dependencies via npm install.
 2. Run npm run build.
 3. Add extension to your Chrome browser's extension library.
 4. Click the puzzle piece at the top bar of your browser that leads to the extension library.
-5. From the list of installed extensions, select the three dots right of the FlyHistory extension and click Open Side Panel.
-6. Then navigate to Google Flights and start searching for flights!
+5. Then navigate to Google Flights and start searching for flights! The flight information will be stored when you navigate to a **booking** page.
+6. From the list of installed extensions, select the three dots right of the FlyHistory extension and click Open Side Panel. Here, you will see all your stored flights and apply filters as needed. Click the redirect button to navigate back to the page.
 
 ## Our Team
 Developed by Brady, Noah, Jason, Melanie
