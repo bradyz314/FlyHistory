@@ -3,6 +3,8 @@ CIS 3500 Final Project
 
 FlyHistory is a Chrome Extension designed to streamline the process of tracking flights that users are interested in. With FlyHistory, users can effortlessly keep tabs on flights they've viewed on Google Flights, making it easy to reference and manage their travel plans. On each Google Flights page users view, FlyHistory will automatically detect and record the flight into its list. To access flight history, click on the FlyHistory icon in the Chrome browser toolbar. Users can manage, filter, and reference their tracked flights directly within the FlyHistory interface.
 
+Landing Page: https://melaniechen912.github.io/flyhistory_page/
+
 ## Features
 1. Automatic Tracking: FlyHistory automatically records flights that users view, eliminating the need for manual input or data entry.
 2. History Management: Users can easily access and manage their flight history directly within the extension interface.
