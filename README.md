@@ -34,5 +34,8 @@ The second screenshot shows an example of the flight information that is stored:
 5. Then navigate to Google Flights and start searching for flights! The flight information will be stored when you navigate to a **booking** page.
 6. From the list of installed extensions, select the three dots right of the FlyHistory extension and click Open Side Panel. Here, you will see all your stored flights and apply filters as needed. Click the redirect button to navigate back to the page.
 
+## Reporting Issues
+If any issues are encountered, please let us know by creating an issue in this repository. Thank you!
+
 ## Our Team
 Developed by Brady, Noah, Jason, Melanie
